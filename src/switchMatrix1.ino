@@ -17,11 +17,11 @@ char keys[ROWS][COLS] = {
   {'4', '5', '6'}
 };
 
-byte rowPins[ROWS] = {14, 15};
-byte colPins[COLS] = {7, 8, 9}; 
+const byte rowPins[ROWS] = {14, 15};
+const byte colPins[COLS] = {7, 8, 9}; 
 
 //--------FUNCTION DECLARATIONS-------//
-void check_matrix();
+void checkMatrix();
 void pressKey(char key);
 void checkMuteButton();
 void checkRotary();
@@ -35,12 +35,12 @@ void setup() {
   Consumer.begin(); //used for media keys (reference to HID-Project)
   pinMode(pinRVUP, INPUT_PULLUP);
   pinMode(pinRVDW, INPUT_PULLUP);
-  pinMode(pinMuteButton,INPUT_PULLUP); 
+  pinMode(pinMuteButton, INPUT_PULLUP); 
 }
 
 //--------LOOP-------//
 void loop() {
-  check_matrix();
+  checkMatrix();
   checkMuteButton();
   checkRotary();
 }
@@ -49,38 +49,27 @@ void loop() {
 void pressKey(char key){
   switch(key){
     case '1':
-      Keyboard.write(KEY_F22);
+      Keyboard.write(KEY_F19);
       delay(100);
       break;
     case '2':
-      Keyboard.write(KEY_F23);
+      Keyboard.write(KEY_F20);
       delay(100);
       break;
     case '3':
-      Keyboard.write(KEY_F24);
+      Keyboard.write(KEY_F21);
       delay(100);
       break;
     case '4':
-      Serial.println("Keys pressed: CTRL+ALT+D");
-      Keyboard.press(KEY_LEFT_CTRL);
-      Keyboard.press(KEY_LEFT_ALT);
-      Keyboard.press('d');
-      Keyboard.releaseAll();
+      Keyboard.write(KEY_F22);
       delay(100);
       break;
     case '5':
-      Keyboard.press(':');
-      Keyboard.releaseAll();
-      Keyboard.print("oscarBot");
-      Keyboard.press(KEY_RETURN);
-      Keyboard.releaseAll();
+      Keyboard.write(KEY_F23);
       delay(100);
       break;
     case '6':
-      Keyboard.write(58);
-      Keyboard.print("covidTubbies");
-      Keyboard.press(KEY_RETURN);
-      Keyboard.releaseAll();
+      Keyboard.write(KEY_F24);
       delay(100);
       break;
     default:
@@ -114,7 +103,7 @@ void checkRotary(){
   lastPositionA = n;
 }
 
-void check_matrix() {
+void checkMatrix() {
     for(int j=0; j<COLS;j++){ 
       byte currentCol = colPins[j];
       for(int i=0; i<ROWS;i++){
